@@ -1,0 +1,29 @@
+@use '../../../../styles/vars/colors.scss' as colors;
+
+.page {
+  background-color: colors.$grayLight;
+  min-height: 100vh;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    max-width: 1440px;
+    padding: 100px 10px 0;
+    margin: 0 auto;
+  }
+
+  &__list {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__children {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}

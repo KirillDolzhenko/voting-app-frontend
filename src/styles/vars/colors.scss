@@ -1,0 +1,18 @@
+@use 'sass:color';
+
+$white: #ffffff;
+$gray: #6e6e6e;
+$grayLight: rgba(
+  color.channel($gray, 'red'),
+  color.channel($gray, 'green'),
+  color.channel($gray, 'blue'),
+  50%
+);
+$black: #000000;
+$yellow: #ffe75e;
+$yellowHover: rgba(
+  color.channel($yellow, 'red'),
+  color.channel($yellow, 'green'),
+  color.channel($yellow, 'blue'),
+  50%
+);

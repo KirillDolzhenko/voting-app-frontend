@@ -1,0 +1,56 @@
+@use '../../../styles/vars/colors.scss' as colors;
+
+.header {
+  background-color: colors.$white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  // width: 100%;
+
+  border-bottom: 3px solid colors.$black;
+  padding: 10px 20px;
+}
+
+.link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    width: 100px;
+    height: 40px;
+  }
+}
+
+.button {
+  user-select: none;
+
+  font-weight: 500;
+  font-size: 1rem;
+
+  gap: 7px;
+  padding: 3px 15px;
+
+  border-radius: 10px;
+  border: 2px solid colors.$black;
+  display: flex;
+
+  transition: all 0.1s ease;
+
+  svg {
+    width: 25px;
+    height: 26px;
+  }
+
+  &:hover {
+    background-color: colors.$yellowHover;
+  }
+
+  &:active {
+    background-color: colors.$yellow;
+  }
+}
