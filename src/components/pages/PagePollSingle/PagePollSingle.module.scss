@@ -1,0 +1,6 @@
+@use '../../../styles/vars/colors.scss' as colors;
+
+.page {
+  background-color: colors.$grayLight;
+  min-height: 100vh;
+}

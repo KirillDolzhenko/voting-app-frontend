@@ -25,21 +25,25 @@
     height: 40px;
   }
 }
+.buttons {
+  display: flex;
+  gap: 10px;
+}
 
 .button {
-  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 15px 5px;
 
   font-weight: 500;
   font-size: 1rem;
 
-  gap: 7px;
-  padding: 3px 15px;
-
   border-radius: 10px;
   border: 2px solid colors.$black;
-  display: flex;
 
   transition: all 0.1s ease;
+  user-select: none;
 
   svg {
     width: 25px;
