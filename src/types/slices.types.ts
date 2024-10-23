@@ -29,7 +29,7 @@ export interface DeletePollParams {
   id: number;
 }
 
-export interface GetPollParams extends DeletePollParams {}
+export type GetPollParams = DeletePollParams;
 
 export interface VotePollParams {
   pollId: number;

@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
 
 const Polls = () => {
-  const { data, isLoading, isSuccess, isError } = useGetPollAllQuery(undefined, {
+  const { data, isSuccess} = useGetPollAllQuery(undefined, {
     pollingInterval: 7000,
   });
   const dispatch = useAppDispatch();

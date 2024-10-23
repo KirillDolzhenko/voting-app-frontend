@@ -1,11 +1,9 @@
-import { useSelector } from 'react-redux';
 import classes from './PollOptions.module.scss';
-import { RootState } from '@/redux/store/store';
 import { useCallback, useEffect, useState } from 'react';
-import { Option, Poll, VotePollParams } from '@/types/slices.types';
-import { useGetPollQuery, useLazyGetPollQuery, useVotePollMutation } from '@/redux/api/poll.api';
-import { useLocation, useParams } from 'react-router-dom';
-import { useController, useForm } from 'react-hook-form';
+import { Option, Poll } from '@/types/slices.types';
+import { useLazyGetPollQuery, useVotePollMutation } from '@/redux/api/poll.api';
+import { useParams } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { TVoteSchema, voteSchema } from '@/validations/poll.validation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../Button/button';
@@ -24,7 +22,7 @@ export default function () {
   const [pollingInterval, setPollingInterval] = useState<NodeJS.Timeout | null>(null);
 
   const startPolling = useCallback((id: number) => {
-    getPoll({ id }); 
+    getPoll({ id });
     const interval = setInterval(() => {
       getPoll({ id });
     }, 7000);

@@ -1,7 +1,7 @@
 import { IStateListSlice, Poll } from '@/types/slices.types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-let initialState: IStateListSlice = {
+const initialState: IStateListSlice = {
   polls: [],
 };
 

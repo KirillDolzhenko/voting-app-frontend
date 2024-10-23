@@ -6,27 +6,22 @@ import { pollSchema, TPollSchema } from '@/validations/poll.validation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import errorOption from '@/funcs/errorOption';
 import { useSetPollMutation } from '@/redux/api/poll.api';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { PollSet } from '@/types/slices.types';
 
 export default function () {
   const {
     register,
     handleSubmit,
     setValue,
-    unregister,
     getValues,
-    resetField,
-
-    reset,
     formState: { errors },
   } = useForm<TPollSchema>({
     resolver: zodResolver(pollSchema),
   });
   const [options, setOptions] = useState<number[]>([0, 1]);
 
-  const navigate = useNavigate();
-
-  const [setPoll, { isLoading, data, isSuccess }] = useSetPollMutation();
+  const [setPoll, { data, isSuccess }] = useSetPollMutation();
 
   const delOption = useCallback((ind: number) => {
     setValue(`options`, [
@@ -38,10 +33,10 @@ export default function () {
   }, []);
 
   const findUniqueNumber = useCallback(() => {
-    let optionsThere: number[] = [...options];
+    const optionsThere: number[] = [...options];
 
     for (let i = 0; i < 10; i++) {
-      let index = optionsThere.find((el) => el === i);
+      const index = optionsThere.find((el) => el === i);
 
       if (!index && index !== 0) {
         return i;
@@ -63,7 +58,7 @@ export default function () {
     }
   }, [isSuccess]);
 
-  const onSubmitForm = useCallback((data: any) => {
+  const onSubmitForm = useCallback((data: PollSet) => {
     console.log(getValues());
     if (data) {
       setPoll(data);

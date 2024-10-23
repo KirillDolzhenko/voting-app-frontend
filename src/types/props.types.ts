@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Option, Poll } from './slices.types';
+import { Poll } from './slices.types';
 
 export interface IPropsClassName {
   className?: string;

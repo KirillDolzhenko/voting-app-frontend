@@ -5,10 +5,10 @@ import hand from '/hand.svg';
 import checkmark from '/checkmark.svg';
 import vote from '/vote.svg';
 
-export let pngFavicon = favicon;
+export const pngFavicon = favicon;
 
-export let svgLogo = logo;
-export let svgCreate = graph;
-export let svgVotes = hand;
-export let svgCheckmark = checkmark;
-export let svgVoteSign = vote;
+export const svgLogo = logo;
+export const svgCreate = graph;
+export const svgVotes = hand;
+export const svgCheckmark = checkmark;
+export const svgVoteSign = vote;

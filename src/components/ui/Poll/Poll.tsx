@@ -3,10 +3,10 @@ import classes from './Poll.module.scss';
 import { svgVotes, svgVoteSign } from '@/links/images.links';
 import { useAppDispatch } from '@/redux/store/store';
 import { setPoll } from '@/redux/store/slices/pollSlice';
-import { IPropsChildren, IPropsPoll, IPropsPolls } from '@/types/props.types';
+import { IPropsPoll } from '@/types/props.types';
 
 export default function ({ poll }: IPropsPoll) {
-  let dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <Link

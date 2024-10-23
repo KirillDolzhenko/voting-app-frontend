@@ -2,7 +2,7 @@ import Header from '@/components/blocks/Header/Header';
 import classes from './PageTemplate.module.scss';
 import { Helmet } from 'react-helmet';
 import { pngFavicon } from '@/links/images.links';
-import { IPropsChildren, IPropsPageTemplate } from '@/types/props.types';
+import { IPropsPageTemplate } from '@/types/props.types';
 import Heading from '@/components/ui/Heading/Heading';
 
 export default function ({ children, title, heading = 'Страница' }: IPropsPageTemplate) {
