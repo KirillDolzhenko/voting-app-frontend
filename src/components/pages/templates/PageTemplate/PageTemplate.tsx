@@ -18,7 +18,11 @@ export default function ({ children, title, heading = 'Страница' }: IPro
         <Heading>{heading}</Heading>
         <div className={classes.page__children}>{children}</div>
       </main>
-      <footer></footer>
+      <footer className={classes.footer}>
+        <div>
+          Сделано <a href="https://github.com/KirillDolzhenko">Кириллом Долженко</a>
+        </div>
+      </footer>
     </div>
   );
 }

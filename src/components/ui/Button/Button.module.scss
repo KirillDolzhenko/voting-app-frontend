@@ -1,0 +1,22 @@
+@use '../../../styles/vars/colors.scss' as colors;
+
+.button {
+  align-self: center;
+  border-radius: 5px;
+  font-weight: 500;
+  padding: 5px 15px;
+
+  font-size: 1.2rem;
+  border: 2px solid colors.$black;
+
+  transition: all 0.1s ease;
+  user-select: none;
+
+  &:hover {
+    background-color: colors.$yellowHover;
+  }
+
+  &:active {
+    background-color: colors.$yellow;
+  }
+}

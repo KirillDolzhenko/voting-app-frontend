@@ -1,0 +1,183 @@
+@use '../../../styles/vars/colors.scss' as colors;
+
+.poll {
+  background-color: colors.$white;
+  padding: 20px;
+  border-radius: 15px;
+
+  border: 2px solid colors.$black;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__stats {
+  }
+
+  &__heading {
+    h3 {
+      word-break: break-all;
+      font-size: 2rem;
+      line-height: 120%;
+    }
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    & li {
+      cursor: pointer;
+
+      display: block;
+      &:has(:checked) {
+        background-color: colors.$yellow;
+      }
+
+      &:hover {
+        background-color: colors.$yellowHover;
+      }
+
+      border-radius: 5px;
+      display: flex;
+      gap: 15px;
+      //   padding: 12px;
+
+      border-bottom: 2px sold colors.$black;
+
+      input {
+        opacity: 0;
+      }
+    }
+  }
+
+  &__button {
+    align-self: center;
+    border-radius: 5px;
+    font-weight: 500;
+    padding: 5px 15px;
+
+    font-size: 1.2rem;
+    border: 2px solid colors.$black;
+
+    transition: all 0.1s ease;
+    user-select: none;
+
+    &:hover {
+      background-color: colors.$yellowHover;
+    }
+
+    &:active {
+      background-color: colors.$yellow;
+    }
+  }
+
+  &__success {
+    text-align: center;
+    color: colors.$success;
+  }
+  &__error {
+    text-align: center;
+    color: colors.$error;
+  }
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+
+  &__percent {
+    width: 100%;
+    height: 5px;
+    background-color: colors.$grayLight;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  &__fill {
+    // width: 100%;
+    height: 100%;
+    background-color: colors.$yellow;
+    transition: all 0.2s ease;
+  }
+
+  &__content {
+    padding: 15px;
+    display: flex;
+    justify-content: start;
+    gap: 15px;
+
+    cursor: pointer;
+
+    width: 100%;
+    font-size: 1.2rem;
+
+    // opacity: 0;
+    background-color: transparent;
+    border: transparent;
+  }
+
+  &__text {
+    position: relative;
+    word-break: break-all;
+
+    &:before {
+      content: '';
+      position: absolute;
+      //   z-index: 1;
+      top: 0;
+      left: -30px;
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      border: 2px solid colors.$black;
+      border-radius: 2px;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -30px;
+      width: 20px;
+      height: 20px;
+      opacity: 0;
+      background: url('/checkmark.svg') center no-repeat;
+      border: 2px solid colors.$black;
+      border-radius: 2px;
+
+      transition: opacity 0.05s ease;
+    }
+  }
+
+  &:has(:checked) {
+    & span:after {
+      opacity: 1;
+    }
+  }
+
+  &__stats {
+    margin-left: auto;
+    justify-self: end;
+    font-size: 1rem;
+    color: colors.$gray;
+  }
+}
+
+@media (max-width: 600px) {
+  .poll {
+    &__heading {
+      h3 {
+        font-size: 1.5rem;
+      }
+    }
+  }
+  .option {
+    &__stats {
+      & span:first-child {
+        display: none;
+      }
+    }
+  }
+}

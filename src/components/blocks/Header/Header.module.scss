@@ -3,6 +3,7 @@
 .header {
   background-color: colors.$white;
   display: flex;
+  gap: 10px;
   justify-content: space-between;
   align-items: center;
 
@@ -45,16 +46,37 @@
   transition: all 0.1s ease;
   user-select: none;
 
-  svg {
-    width: 25px;
-    height: 26px;
-  }
-
   &:hover {
     background-color: colors.$yellowHover;
   }
 
   &:active {
     background-color: colors.$yellow;
+  }
+
+  svg {
+    width: 25px;
+    height: 26px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 10px 5px 10px 20px;
+  }
+  .buttons {
+    flex-direction: column;
+    align-items: end;
+    gap: 5px;
+  }
+
+  .button {
+    font-size: 0.8rem;
+    padding: 3px 10px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
   }
 }

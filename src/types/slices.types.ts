@@ -5,6 +5,7 @@ export interface IId {
 export interface Option extends IId {
   text: string;
   id: number;
+  votes: number;
 }
 
 export interface PollSet {
@@ -25,10 +26,19 @@ export interface IStatePollSlice {
 // API POLL
 
 export interface DeletePollParams {
-    id: number
-} 
+  id: number;
+}
+
+export interface GetPollParams extends DeletePollParams {}
 
 export interface VotePollParams {
-    pollId: number,
-    optionId: number
+  pollId: number;
+  optionId: number;
+}
+
+// SLICE LIST
+
+export interface IStateListSlice {
+  polls: Poll[];
+  checked?: number;
 }

@@ -1,5 +1,9 @@
+@use './vars/colors.scss' as colors;
 @use './null.scss';
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  ::selection {
+    background: colors.$yellow; /* Safari */
+  }
 }

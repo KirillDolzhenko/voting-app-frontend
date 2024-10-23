@@ -1,9 +1,11 @@
+import { useGetPollAllQuery } from '@/redux/api/poll.api';
 import PageTemplate from '../templates/PageTemplate/PageTemplate';
+import PollCreation from '@/components/blocks/PollCreation/PollCreation';
 
 const PagePoll = () => {
   return (
-    <PageTemplate title="Votify" heading="Опрос">
-      <>какой-то опрос допустим</>
+    <PageTemplate title="Votify" heading="Создай опрос">
+      <PollCreation />
     </PageTemplate>
   );
 };

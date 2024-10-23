@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/create-poll" element={<PagePoll />} />
-        <Route path="/poll" element={<PagePollSingle />} />
+        <Route path="/poll/:id" element={<PagePollSingle />} />
         <Route path="/" element={<PageMain />} />
       </Routes>
     </BrowserRouter>

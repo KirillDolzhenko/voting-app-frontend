@@ -7,3 +7,11 @@
     gap: 10px;
   }
 }
+
+@media (max-width: 600px) {
+  .polls {
+    &__content {
+      gap: 5px;
+    }
+  }
+}
