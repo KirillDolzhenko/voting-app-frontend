@@ -119,14 +119,18 @@ export default function () {
                 : 'Произошла непредвиденная ошибка'}
             </span>
           )}
-          {isSuccess && data && !isError && !Boolean(Object.keys(errors).length) && (
-            <>
-              <span className={classes.poll__success}>Ты успешно создал опрос! </span>
-              <span className={classes.poll__link}>
-                <Link to={`/poll/${data.id}`}>Нажми сюда, чтобы перейти</Link>
-              </span>
-            </>
-          )}
+
+          {
+            // eslint-disable-next-line no-extra-boolean-cast
+            isSuccess && data && !isError && !Boolean(Object.keys(errors).length) && (
+              <>
+                <span className={classes.poll__success}>Ты успешно создал опрос! </span>
+                <span className={classes.poll__link}>
+                  <Link to={`/poll/${data.id}`}>Нажми сюда, чтобы перейти</Link>
+                </span>
+              </>
+            )
+          }
         </div>
       </div>
     </form>
