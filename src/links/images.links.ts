@@ -4,6 +4,7 @@ import graph from '/graph.svg';
 import hand from '/hand.svg';
 import checkmark from '/checkmark.svg';
 import vote from '/vote.svg';
+import home from '/home.svg';
 
 export const pngFavicon = favicon;
 
@@ -12,3 +13,4 @@ export const svgCreate = graph;
 export const svgVotes = hand;
 export const svgCheckmark = checkmark;
 export const svgVoteSign = vote;
+export const svgMainPage = home;

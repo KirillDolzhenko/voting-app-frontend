@@ -12,7 +12,6 @@ export default function ({ poll }: IPropsPoll) {
     <Link
       to={`/poll/${poll.id}`}
       onClick={() => {
-        console.log('clickkk');
         dispatch(
           setPoll({
             ...poll,

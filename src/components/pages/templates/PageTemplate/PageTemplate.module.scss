@@ -1,11 +1,16 @@
 @use '../../../../styles/vars/colors.scss' as colors;
 
 .page {
+  display: flex;
+  flex-direction: column;
   background-color: colors.$grayLight;
   min-height: 100vh;
 
   &__content {
+    width: 100%;
+    flex-grow: 1;
     display: flex;
+    align-items: stretch;
     flex-direction: column;
     gap: 20px;
 
@@ -31,7 +36,7 @@
 .footer {
   margin-top: 50px;
   border-top: 2px solid colors.$black;
-  background-color: colors.$yellow;
+  background-color: colors.$white;
   padding: 15px;
 
   div {

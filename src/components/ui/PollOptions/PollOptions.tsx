@@ -1,43 +1,62 @@
 import classes from './PollOptions.module.scss';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Option, Poll } from '@/types/slices.types';
-import { useLazyGetPollQuery, useVotePollMutation } from '@/redux/api/poll.api';
-import { useParams } from 'react-router-dom';
+import {
+  useDeletePollMutation,
+  useLazyGetPollQuery,
+  useVotePollMutation,
+} from '@/redux/api/poll.api';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { TVoteSchema, voteSchema } from '@/validations/poll.validation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../Button/button';
 
 export default function () {
-  const params = useParams();
-  useEffect(() => {
-    if (params && params.id) {
-      startPolling(Number([params.id]));
-      getPoll({ id: Number([params.id]) });
-      setValue('pollId', Number(params.id));
-    }
-  }, [params]);
+  const [votePull, { isSuccess: isSuccessVote }] = useVotePollMutation();
+  const [deletePoll, { isSuccess: isSuccessDelete }] = useDeletePollMutation();
 
-  const [getPoll, { isLoading, data }] = useLazyGetPollQuery();
-  const [pollingInterval, setPollingInterval] = useState<NodeJS.Timeout | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isSuccessDelete) {
+      navigate('/');
+    }
+  }, [isSuccessDelete]);
+
+  const [voted, setVoted] = useState<boolean>(false);
+
+  const params = useParams();
+  const [getPoll, { data, isLoading, isError, isSuccess }] = useLazyGetPollQuery();
+  const refPollingInterval = useRef<NodeJS.Timeout | null>(null);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm<TVoteSchema>({
+    defaultValues: { pollId: data?.id },
+    resolver: zodResolver(voteSchema),
+  });
 
   const startPolling = useCallback((id: number) => {
     getPoll({ id });
+
     const interval = setInterval(() => {
       getPoll({ id });
-    }, 7000);
-    setPollingInterval(interval);
+    }, import.meta.env.VITE_INTERVAL);
+
+    refPollingInterval.current = interval;
   }, []);
 
-  useEffect(() => {
-    return () => {
-      if (pollingInterval) {
-        clearInterval(pollingInterval);
-      }
-    };
+  const onSubmitForm = useCallback((data: { optionId: string; pollId: number }) => {
+    if (data) {
+      votePull({
+        optionId: Number(data.optionId),
+        pollId: data.pollId,
+      });
+    }
   }, []);
-
-  const [votePull, { isSuccess: isSuccessVote }] = useVotePollMutation();
 
   const countPercent = useCallback((poll: Poll, option: Option) => {
     const votesSum = poll.options.reduce((ac, curVal) => ac + curVal.votes, 0);
@@ -49,35 +68,36 @@ export default function () {
     }
   }, []);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm<TVoteSchema>({
-    defaultValues: {
-      pollId: data?.id,
-    },
-    resolver: zodResolver(voteSchema),
-  });
+  // useEffects
 
-  const onSubmitForm = useCallback((data: { optionId: string; pollId: number }) => {
-    if (data) {
-      votePull({
-        optionId: Number(data.optionId),
-        pollId: data.pollId,
-      });
+  useEffect(() => {
+    if (params && params.id) {
+      startPolling(Number([params.id]));
+      getPoll({ id: Number([params.id]) });
+      setValue('pollId', Number(params.id));
     }
+  }, [params]);
+
+  useEffect(() => {
+    return () => {
+      if (refPollingInterval.current) {
+        clearInterval(refPollingInterval.current);
+      }
+    };
   }, []);
 
   useEffect(() => {
-    console.log(errors);
-  }, [errors]);
+    if (isSuccessVote) {
+      setVoted(true);
+    }
+  }, [isSuccessVote]);
 
   return (
     <form onSubmit={handleSubmit(onSubmitForm)} className={classes.poll}>
       {isLoading ? (
-        'Загрузка...'
+        <span className={classes.message}>Загрузка...</span>
+      ) : isError || !isSuccess ? (
+        <span className={classes.message}>Опрос не найден :(</span>
       ) : (
         <>
           <div className={classes.poll__heading}>
@@ -86,7 +106,14 @@ export default function () {
           <ul className={classes.poll__options}>
             {data?.options.map((el) => (
               <li className={classes.option} key={el.id}>
-                <label className={classes.option__container}>
+                <label
+                  onClick={(e) => {
+                    if (voted) {
+                      e.preventDefault();
+                    }
+                  }}
+                  className={classes.option__container}
+                >
                   <div className={classes.option__content}>
                     <input
                       className={classes.option__input}
@@ -98,7 +125,8 @@ export default function () {
                     ></input>
                     <span className={classes.option__text}>{el.text}</span>
                     <span className={classes.option__stats}>
-                      <span>{el.votes} голосов</span> (<span>{countPercent(data, el)}</span>)
+                      <span>{el.votes} голосов</span>{' '}
+                      {countPercent(data, el) ? <span>({countPercent(data, el)})</span> : <></>}
                     </span>
                   </div>
                   <div className={classes.option__percent}>
@@ -113,7 +141,11 @@ export default function () {
               </li>
             ))}
           </ul>
-          <Button>Проголосовать</Button>
+
+          <div className={classes.buttons}>
+            {!voted && <Button>Проголосовать</Button>}{' '}
+            <Button onClick={() => deletePoll({ id: Number(params.id) })}>Удалить опрос</Button>
+          </div>
           {Boolean(Object.keys(errors).length) && (
             <span className={classes.poll__error}>
               {errors.pollId?.message

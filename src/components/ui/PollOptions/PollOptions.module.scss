@@ -165,6 +165,14 @@
   }
 }
 
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  width: 100%;
+}
+
 @media (max-width: 600px) {
   .poll {
     &__heading {
@@ -180,4 +188,13 @@
       }
     }
   }
+}
+
+.message {
+  display: flex;
+  width: 100%;
+  font-size: 1rem;
+  padding: 10px;
+  text-align: center;
+  color: colors.$gray;
 }

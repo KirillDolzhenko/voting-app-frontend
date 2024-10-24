@@ -19,17 +19,21 @@ export default function () {
   } = useForm<TPollSchema>({
     resolver: zodResolver(pollSchema),
   });
+  const [setPoll, { data, isSuccess, isError }] = useSetPollMutation();
   const [options, setOptions] = useState<number[]>([0, 1]);
-
-  const [setPoll, { data, isSuccess }] = useSetPollMutation();
 
   const delOption = useCallback((ind: number) => {
     setValue(`options`, [
       ...getValues('options').slice(0, ind),
       ...getValues('options').slice(ind + 1),
     ]);
-    console.log(getValues());
     setOptions((options) => [...options.slice(0, ind), ...options.slice(ind + 1)]);
+  }, []);
+
+  const onSubmitForm = useCallback((data: PollSet) => {
+    if (data) {
+      setPoll(data);
+    }
   }, []);
 
   const findUniqueNumber = useCallback(() => {
@@ -46,9 +50,7 @@ export default function () {
     return 11;
   }, [options]);
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
+  // useEffects
 
   useEffect(() => {
     if (isSuccess) {
@@ -57,14 +59,6 @@ export default function () {
       setOptions([]);
     }
   }, [isSuccess]);
-
-  const onSubmitForm = useCallback((data: PollSet) => {
-    console.log(getValues());
-    if (data) {
-      setPoll(data);
-      console.log(data);
-    }
-  }, []);
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmitForm)}>
@@ -113,25 +107,27 @@ export default function () {
           )}
         </ul>
         <Button>Опубликовать</Button>
-        {Boolean(Object.keys(errors).length) && (
-          <span className={classes.poll__error}>
-            {errors.title?.message
-              ? errors.title.message
-              : errors.options?.length
-              ? errorOption(errors.options)
-              : errors.options?.root?.message
-              ? errors.options.root.message
-              : 'Произошла непредвиденная ошибка'}
-          </span>
-        )}
-        {isSuccess && data && (
-          <span className={classes.poll__success}>
-            Ты успешно создал опрос!{' '}
-            <Link to={`/poll/${data.id}`}>
-              <u>Нажми сюда, чтобы перейти</u>
-            </Link>
-          </span>
-        )}
+        <div className={classes.poll__messages}>
+          {Boolean(Object.keys(errors).length) && (
+            <span className={classes.poll__error}>
+              {errors.title?.message
+                ? errors.title.message
+                : errors.options?.length
+                ? errorOption(errors.options)
+                : errors.options?.root?.message
+                ? errors.options.root.message
+                : 'Произошла непредвиденная ошибка'}
+            </span>
+          )}
+          {isSuccess && data && !isError && !Boolean(Object.keys(errors).length) && (
+            <>
+              <span className={classes.poll__success}>Ты успешно создал опрос! </span>
+              <span className={classes.poll__link}>
+                <Link to={`/poll/${data.id}`}>Нажми сюда, чтобы перейти</Link>
+              </span>
+            </>
+          )}
+        </div>
       </div>
     </form>
   );

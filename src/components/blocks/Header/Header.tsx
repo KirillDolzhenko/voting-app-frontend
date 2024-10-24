@@ -1,4 +1,4 @@
-import { svgCreate, svgLogo } from '@/links/images.links';
+import { svgCreate, svgLogo, svgMainPage } from '@/links/images.links';
 import classes from './Header.module.scss';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ const Header = () => {
           <Link to="/" className={classes.button}>
             Главная страница
             <svg>
-              <use href={`${svgCreate}#icon`} />
+              <use href={`${svgMainPage}#icon`} />
             </svg>
           </Link>
         )}
