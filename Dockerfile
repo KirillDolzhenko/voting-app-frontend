@@ -2,7 +2,7 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY package*.json yarn.lock ./
+COPY package*.json ./
 
 RUN npm install
 
@@ -10,8 +10,8 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn build
+RUN npm run build
 
 EXPOSE 4001
 
-CMD ["yarn", "preview", "--host"]
+CMD ["npm", "run", "preview"]
