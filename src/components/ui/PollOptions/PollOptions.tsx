@@ -10,7 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { TVoteSchema, voteSchema } from '@/validations/poll.validation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Button from '../Button/button';
+import Button from '../Button/Button';
 
 export default function () {
   const [votePull, { isSuccess: isSuccessVote }] = useVotePollMutation();

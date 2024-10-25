@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import classes from './PollCreation.module.scss';
 import { useCallback, useEffect, useState } from 'react';
-import Button from '@/components/ui/Button/button';
+import Button from '@/components/ui/Button/Button';
 import { pollSchema, TPollSchema } from '@/validations/poll.validation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import errorOption from '@/funcs/errorOption';
